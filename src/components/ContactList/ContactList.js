@@ -7,10 +7,8 @@ export const ContactList = () => {
   const contacts = useSelector(getItems);
   const filter = useSelector(getFilter);
 
-console.log(contacts);
   const filterContacts = contacts.filter(contact => {
     const { userName } = contact.name;
-  console.log(contact.name);
    return userName.toLowerCase().includes(filter.toLowerCase());
   });
       

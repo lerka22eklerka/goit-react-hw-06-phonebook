@@ -27,7 +27,6 @@ export const ContactForm = () => {
   // console.log(contacts);
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(contacts);
 
     if (
       contacts.some(contact => {
@@ -38,7 +37,6 @@ export const ContactForm = () => {
     }
 
     dispatch(addContact({ userName, number }));
-    console.log('new data');
     setUsername('');
     setNumber('');
   };
