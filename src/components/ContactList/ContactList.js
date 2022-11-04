@@ -13,18 +13,24 @@ export const ContactList = () => {
   //     contact.name.toLowerCase().includes(filter.toLowerCase())
   //   );
   // };
-
-  const filterContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()));
+console.log(contacts);
+  const filterContacts = contacts.filter(contact => {
+     console.log(contact);
+    const { userName } = contact.name;
+  console.log(contact.name);
+   return userName.toLowerCase().includes(filter.toLowerCase());
+  });
+      
   
   // const contactsList = filterContacts();
 
     return (
       <List>
-        {filterContacts.map(({ id, name, number }) => (
-          <ContactPerson key={id} id={id} name={name} number={number} />
+        {filterContacts.map(contact => (
+          <ContactPerson key={contact.id} id={contact.id } contact={contact.name} />
         ))}
       </List>
     );
 }
 
+export default ContactList;
