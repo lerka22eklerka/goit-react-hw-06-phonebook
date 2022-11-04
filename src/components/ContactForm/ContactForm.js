@@ -74,7 +74,7 @@ export const ContactForm = () => {
 };
 
 ContactForm.propTypes = {
-  name: PropTypes.string,
+  userName: PropTypes.string,
   number: PropTypes.string,
 };
 

@@ -5,8 +5,7 @@ import { BtnDelete, ContactBox, ContactStyled } from './ContactPerson.styled';
 
 export const ContactPerson = ({ id, contact: {userName, number}}) => {
   const dispatch = useDispatch();
-  console.log(id);
-  console.log(userName);
+
   return (
     <li>
       <ContactBox>
