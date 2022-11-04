@@ -6,15 +6,21 @@ import {
   Input,
   LabelStyled,
 } from './ContactForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { getItems } from 'redux/selectors';
+import { addContact } from 'redux/contactsSlice';
+
 
 export const ContactForm = ({onSubmit}) => {
-  const [name, setName] = useState('');
+  const [userName, setUserName] = useState('');
   const [number, setNumber] = useState('');
-  
+  const contacts = useSelector(getItems);
+  const dispatch = useDispatch();
+
   const handelChange = event => {
     const { name, value } = event.target;
         if (name === 'name') {
-            setName(value);
+            setUserName(value);
         } else if (name === 'number') {
             setNumber(value);
         }
@@ -22,11 +28,18 @@ export const ContactForm = ({onSubmit}) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    onSubmit({name, number});
+    if (
+      contacts.some(
+        ({ name }) => name.toLowerCase() === userName.name.toLowerCase()
+      )
+    ) {
+      return alert(userName.name + ' is already in contacts!');
+    }
+    dispatch(addContact({ userName, number }));
     console.log('new data');
-    setName('');
+    setUserName('');
     setNumber('');
-  };
+  }
 
 
     return (
@@ -37,7 +50,7 @@ export const ContactForm = ({onSubmit}) => {
             onChange={handelChange}
             type="text"
             name="name"
-            value={name}
+            value={userName}
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
@@ -60,5 +73,6 @@ export const ContactForm = ({onSubmit}) => {
 }
 
 ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  number: PropTypes.string,
 };
